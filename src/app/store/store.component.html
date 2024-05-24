@@ -1,0 +1,25 @@
+<nz-layout>
+  <app-header>
+    <ng-container headerMenuLeft>
+      <ul nz-menu nzTheme="dark" nzMode="horizontal">
+        <li nz-menu-item><span nz-icon nzType="shopping-cart" nzTheme="outline"></span> Mi pedido</li>
+      </ul>
+    </ng-container>
+    <ng-container headerMenuRight>
+      <ul nz-menu nzTheme="dark" nzMode="horizontal">
+        <li nz-menu-item><span nz-icon nzType="key" nzTheme="outline"></span> Iniciar sesión</li>
+        <li nz-menu-item><span nz-icon nzType="user" nzTheme="outline"></span> Registrarse</li>
+      </ul>
+    </ng-container>
+  </app-header>
+  <nz-content>
+    <div class="py-5 px-3 lg:px-[50px]">
+      Tienda
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+  <nz-footer class="text-center">
+    Tienda GSF ©2024 Implementada por Carlos Castillo -
+    <a class="text-blue-500" routerLink="/administrator/">Ir al administrador</a>
+  </nz-footer>
+</nz-layout>

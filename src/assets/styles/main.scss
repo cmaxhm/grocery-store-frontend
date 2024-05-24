@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+// Icons
+
+.ant-menu-title-content {
+  @apply flex items-center gap-3;
+}
+
+// Menu
+
+.vertical-menu {
+  & > * {
+    @apply w-full flex flex-col;
+  }
+}

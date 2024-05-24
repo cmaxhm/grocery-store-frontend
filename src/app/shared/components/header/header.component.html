@@ -1,0 +1,20 @@
+<nz-header class="flex justify-between gap-5 relative" [ngClass]="{ 'flex-col gap-0 px-3': isResponsive }">
+  <div class="w-full" [ngClass]="{ 'vertical-menu': isResponsive }">
+    <div class="w-32 float-start flex items-center" [ngClass]="{ '!items-start': isResponsive }">
+      <a class="w-full bg-blue-950 text-white text-center" routerLink="/" [ngClass]="{ '!w-32': isResponsive }">Tienda GSF</a>
+    </div>
+    <div *ngIf="isMenuDisplayed" [ngClass]="{ 'vertical-menu': isResponsive }">
+      <ng-content select="[headerMenuLeft]"></ng-content>
+    </div>
+  </div>
+  <div class="w-full flex justify-end" *ngIf="isMenuDisplayed" [ngClass]="{ 'vertical-menu': isResponsive }">
+    <ng-content select="[headerMenuRight]"></ng-content>
+  </div>
+  <button
+    class="absolute p-2 top-[15px] right-4 text-gray-300 flex items-center cursor-pointer hover:bg-gray-600 rounded transition"
+    *ngIf="isResponsive"
+    (click)="toggleMenu()"
+  >
+    <span nz-icon nzType="menu" nzTheme="outline"></span>
+  </button>
+</nz-header>
