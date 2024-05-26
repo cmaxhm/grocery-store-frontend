@@ -1,16 +1,11 @@
 <nz-layout>
   <app-header>
-    <div headerMenuLeft>
+    <ng-container headerMenu>
       <ul nz-menu nzTheme="dark" nzMode="horizontal">
-        <li nz-menu-item><span nz-icon nzType="ordered-list" nzTheme="outline"></span> Catálogo</li>
-        <li nz-menu-item><span nz-icon nzType="shopping-cart" nzTheme="outline"></span> Pedidos</li>
+        <li nz-menu-item routerLink="catalog" nzMatchRouter nzMatchRouterExact><span nz-icon nzType="ordered-list" nzTheme="outline"></span> Catálogo</li>
+        <li nz-menu-item routerLink="orders" nzMatchRouter nzMatchRouterExact><span nz-icon nzType="shopping-cart" nzTheme="outline"></span> Pedidos</li>
       </ul>
-    </div>
-    <div headerMenuRight>
-      <ul nz-menu nzTheme="dark" nzMode="horizontal">
-        <li nz-menu-item><span nz-icon nzType="logout" nzTheme="outline"></span> Cerrar sesión</li>
-      </ul>
-    </div>
+    </ng-container>
   </app-header>
   <nz-content>
     <div class="py-5 px-3 lg:px-[50px]">
@@ -18,5 +13,7 @@
       <router-outlet></router-outlet>
     </div>
   </nz-content>
-  <nz-footer class="text-center">Tienda GSF ©2024 Implementada por Carlos Castillo</nz-footer>
+  <nz-footer class="text-center">
+    <app-footer></app-footer>
+  </nz-footer>
 </nz-layout>

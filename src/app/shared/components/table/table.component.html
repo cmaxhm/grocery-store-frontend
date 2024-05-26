@@ -1,0 +1,34 @@
+<nz-table
+  #table
+  [nzData]="data"
+  [nzTotal]="data.length"
+  [nzShowPagination]="false"
+  [nzFooter]="tableTotalTemplate"
+  [nzNoResult]="noResultTemplate"
+>
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let column of columns">{{ column }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of table.data">
+      <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+    </ng-container>
+  </tbody>
+</nz-table>
+
+<ng-template #noResultTemplate>
+  <div class="text-center">
+    <img class="max-w-9 h-auto inline-block mb-3 opacity-30" src="/assets/images/sad-face.png" alt="sad-face">
+    <p>No hay productos.</p>
+  </div>
+</ng-template>
+
+<ng-template #tableTotalTemplate>
+  <ng-container *ngIf="numberOfProductsInCart$ | async as numberOfProductsInCart">
+    <span *ngIf="numberOfProductsInCart >= 1">
+      Total: {{ numberOfProductsInCart }} {{ (numberOfProductsInCart > 1) ? 'productos' : 'producto' }}
+    </span>
+  </ng-container>
+</ng-template>

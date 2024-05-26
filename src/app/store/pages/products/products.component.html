@@ -1,0 +1,20 @@
+<h1 class="text-2xl font-semibold mb-5">Tienda</h1>
+<section class="mb-5">
+  <nz-input-group [nzSuffix]="suffixIconSearch" class="max-w-md">
+    <input nz-input type="text" placeholder="Buscar producto..." [(ngModel)]="filterByProductNameInputValue">
+  </nz-input-group>
+</section>
+<section class="grid grid-cols-2 lg:grid-cols-4 mt-5 gap-5">
+  <app-product
+    *ngFor="let product of products | filterProducts:filterByProductNameInputValue; let i = index; trackBy: trackByFunction"
+    [product]="product"
+  ></app-product>
+</section>
+<section class="text-center" *ngIf="(products | filterProducts:filterByProductNameInputValue).length === 0">
+  <img class="max-w-9 h-auto inline-block mb-3 opacity-30" src="/assets/images/sad-face.png" alt="sad-face">
+  <p>No hay productos disponibles.</p>
+</section>
+
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>

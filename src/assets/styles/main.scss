@@ -2,17 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-
 // Icons
 
 .ant-menu-title-content {
   @apply flex items-center gap-3;
 }
 
-// Menu
+// Menus
 
 .vertical-menu {
   & > * {
     @apply w-full flex flex-col;
   }
+}
+
+.ant-menu-item.disabled-menu-item:hover,
+.ant-menu-item-selected.disabled-menu-item {
+  @apply cursor-default hover:bg-transparent #{!important};
+}
+
+// Buttons
+
+.ant-btn {
+  @apply flex items-center justify-center gap-1 rounded;
+}
+
+// Badges
+
+.ant-scroll-number {
+  @apply bg-blue-800 shadow-none;
+}
+
+// Tables
+
+.ant-table-content {
+  @apply overflow-x-auto;
+
+  table {
+    @apply min-w-[720px];
+  }
+}
+
+// Inputs
+
+nz-input-group,
+.ant-input {
+  @apply rounded;
+}
+
+// Messages
+
+.ant-message-custom-content {
+  @apply flex items-center;
 }

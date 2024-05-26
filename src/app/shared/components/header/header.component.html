@@ -1,14 +1,27 @@
-<nz-header class="flex justify-between gap-5 relative" [ngClass]="{ 'flex-col gap-0 px-3': isResponsive }">
+<nz-header class="flex justify-between gap-5 relative z-10" [ngClass]="{ 'flex-col !gap-0 px-3': isResponsive }">
   <div class="w-full" [ngClass]="{ 'vertical-menu': isResponsive }">
     <div class="w-32 float-start flex items-center" [ngClass]="{ '!items-start': isResponsive }">
       <a class="w-full bg-blue-950 text-white text-center" routerLink="/" [ngClass]="{ '!w-32': isResponsive }">Tienda GSF</a>
     </div>
-    <div *ngIf="isMenuDisplayed" [ngClass]="{ 'vertical-menu': isResponsive }">
-      <ng-content select="[headerMenuLeft]"></ng-content>
+    <div *ngIf="isMenuDisplayed" [ngClass]="{ 'vertical-menu': isResponsive }" (click)="toggleMenu()">
+      <ng-content select="[headerMenu]"></ng-content>
     </div>
   </div>
-  <div class="w-full flex justify-end" *ngIf="isMenuDisplayed" [ngClass]="{ 'vertical-menu': isResponsive }">
-    <ng-content select="[headerMenuRight]"></ng-content>
+  <div class="w-full flex flex-col md:flex-row md:justify-end" *ngIf="isMenuDisplayed" [ngClass]="{ 'vertical-menu': isResponsive }" (click)="toggleMenu()">
+    <div class="flex !flex-row items-center gap-3 text-gray-400 bg-[#001529] px-5" *ngIf="isUserAuthenticated">
+      <span nz-icon nzType="user" nzTheme="outline"></span>
+      <span>{{ user?.username }}</span>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item routerLink="/login" nzMatchRouter nzMatchRouterExact *ngIf="!isUserAuthenticated">
+        <span nz-icon nzType="key" nzTheme="outline"></span> Iniciar sesión
+      </li>
+      <ng-container *ngIf="isUserAuthenticated">
+        <li nz-menu-item *ngIf="isUserAuthenticated" (click)="logout()">
+          <span nz-icon nzType="logout" nzTheme="outline"></span> Cerrar sesión
+        </li>
+      </ng-container>
+    </ul>
   </div>
   <button
     class="absolute p-2 top-[15px] right-4 text-gray-300 flex items-center cursor-pointer hover:bg-gray-600 rounded transition"

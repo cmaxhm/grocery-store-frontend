@@ -1,0 +1,32 @@
+<section class="flex flex-col items-center">
+  <h1 class="text-2xl font-semibold mb-5">Iniciar sesión</h1>
+  <div class="max-w-[250px] p-5 rounded">
+    <form nz-form [formGroup]="form" nzLayout="vertical">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Por favor, ingrese su nombre de usuario">
+          <nz-form-label>Nombre de usuario</nz-form-label>
+          <input nz-input formControlName="username" type="text" placeholder="Nombre de usuario...">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Por favor, ingrese su contraseña">
+          <nz-form-label>Contraseña</nz-form-label>
+          <input nz-input formControlName="password" type="password" placeholder="Contraseña...">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <button
+          class="w-full"
+          nz-button
+          nzType="primary"
+          nzBlock
+          (click)="login()"
+          [disabled]="form.invalid"
+          [nzLoading]="isLoginButtonDisabled"
+        >
+          Iniciar sesión
+        </button>
+      </nz-form-item>
+    </form>
+  </div>
+</section>

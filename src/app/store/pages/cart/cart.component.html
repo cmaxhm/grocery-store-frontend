@@ -1,0 +1,49 @@
+<h1 class="text-2xl font-semibold mb-5">Carrito</h1>
+<section class="mb-5">
+ <app-table
+   [data]="(cartProducts$ | async)!"
+   [columns]="['Imagen', 'Nombre', 'Descripción', 'Precio', 'Cantidad', 'Acciones']"
+ >
+   <ng-template let-item>
+     <tr>
+       <td>
+         <img class="w-10" src="/assets/images/image-placeholder.jpg" alt="placeholder">
+       </td>
+       <td>{{ item.name }}</td>
+       <td>{{ item.description }}</td>
+       <td>{{ item.price | currency }}</td>
+       <td>
+         <div class="flex items-center gap-2">
+           <button
+             nz-button
+             nzType="text"
+             nzShape="circle"
+             [disabled]="item.quantity === 1"
+             (click)="decreaseProductQuantityFromCart(item)"
+           >
+             <span nz-icon nzType="minus-circle" nzTheme="outline"></span>
+           </button>
+           <span>{{ item.quantity }}</span>
+           <button nz-button nzType="text" nzShape="circle" (click)="addProductToCart(item)">
+             <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
+           </button>
+         </div>
+       </td>
+       <td>
+         <button nz-button nzType="default" nzDanger (click)="deleteProductFromCart(item)"><span nz-icon nzType="delete"></span></button>
+       </td>
+     </tr>
+   </ng-template>
+ </app-table>
+</section>
+<section class="mb-5 text-right text-xl font-semibold">
+  Total: {{ totalPrice | currency }}
+</section>
+<section class="flex justify-end gap-5">
+  <button nz-button nzType="default" class="rounded" [disabled]="(cartProducts$ | async)?.length === 0" (click)="emptyCart()">
+    <span nz-icon nzType="delete" nzTheme="outline"></span> Vaciar carrito
+  </button>
+  <button nz-button nzType="primary" class="rounded" [disabled]="(cartProducts$ | async)?.length === 0" (click)="sendOrder()">
+    <span nz-icon nzType="check" nzTheme="outline"></span> Realizar pedido
+  </button>
+</section>
