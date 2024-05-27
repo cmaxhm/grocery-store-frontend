@@ -51,7 +51,7 @@
 
 nz-input-group,
 .ant-input {
-  @apply rounded;
+  @apply rounded #{!important};
 }
 
 .ant-form-item-control-input {

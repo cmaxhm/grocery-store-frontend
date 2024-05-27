@@ -33,6 +33,11 @@ export class CartComponent implements OnDestroy {
   private products: Product[];
 
   /**
+   * Whether the user is authenticated or not.
+   */
+  public isUserAuthenticated: boolean;
+
+  /**
    * The destroy subject. Used to avoid memory leaks.
    *
    * @private
@@ -47,6 +52,7 @@ export class CartComponent implements OnDestroy {
   ) {
     this.totalPrice = 0;
     this.products = [];
+    this.isUserAuthenticated = this.loginService.isUserAuthenticated();
     this.destroy$ = new Subject();
     this.cartProducts$ = this.store
       .select(selectCart)

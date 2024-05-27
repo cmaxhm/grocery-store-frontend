@@ -39,7 +39,7 @@
 <section class="mb-5 text-right text-xl font-semibold">
   Total: {{ totalPrice | currency }}
 </section>
-<section class="flex justify-end gap-5">
+<section class="flex justify-end gap-5" *ngIf="isUserAuthenticated">
   <button
     nz-button
     nzType="default"
@@ -58,4 +58,9 @@
   >
     <span nz-icon nzType="check" nzTheme="outline"></span> Realizar pedido
   </button>
+</section>
+<section *ngIf="!isUserAuthenticated">
+  <p class="text-center font-semibold p-2 bg-amber-50 border border-amber-200 rounded">
+    Debes iniciar sesión para poder realizar un pedido. <a class="text-blue-500" routerLink="/login">Haz click aquí para iniciar sesión</a>.
+  </p>
 </section>

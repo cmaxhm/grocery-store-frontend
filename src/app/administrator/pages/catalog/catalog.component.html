@@ -59,7 +59,12 @@
         <td>{{ item.name }}</td>
         <td>{{ item.description }}</td>
         <td>{{ item.price | currency }}</td>
-        <td>{{ item.quantity }}</td>
+        <td>
+          {{ item.quantity }}
+          <span *ngIf="item.quantity === 0" class="text-white px-2 border border-red-600 bg-red-400 rounded-full">
+            Sin inventario
+          </span>
+        </td>
         <td>
           <div class="flex gap-2">
             <button nz-button nz-tooltip nzTooltipTitle="Editar" nzType="default" (click)="editProduct(item)">

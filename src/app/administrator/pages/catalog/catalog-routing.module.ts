@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: CatalogComponent,
-    title: 'Tienda GSF - Catalog'
+    title: 'Tienda GSF - Catálogo'
   }
 ];
 

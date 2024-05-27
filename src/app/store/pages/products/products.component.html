@@ -5,10 +5,9 @@
   </nz-input-group>
 </section>
 <section class="grid grid-cols-2 lg:grid-cols-4 mt-5 gap-5">
-  <app-product
-    *ngFor="let product of products | filterProducts:filterByProductNameInputValue; trackBy: trackByFunction"
-    [product]="product"
-  ></app-product>
+  <ng-container *ngFor="let product of products | filterProducts:filterByProductNameInputValue; trackBy: trackByFunction">
+    <app-product [product]="product" *ngIf="product.quantity > 0"></app-product>
+  </ng-container>
 </section>
 <section class="text-center" *ngIf="(products | filterProducts:filterByProductNameInputValue).length === 0">
   <img class="max-w-9 h-auto inline-block mb-3 opacity-30" src="/assets/images/sad-face.png" alt="sad-face">
