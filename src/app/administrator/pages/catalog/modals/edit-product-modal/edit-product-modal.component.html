@@ -1,0 +1,45 @@
+<form nz-form nzLayout="vertical" class="w-full flex flex-col gap-y-2" [formGroup]="form">
+  <nz-form-item class="w-full mb-0">
+    <nz-form-control nzErrorTip="Este campo es obligatorio.">
+      <nz-form-label nzRequired>Nombre</nz-form-label>
+      <input nz-input formControlName="name" placeholder="Nombre...">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item class="w-full mb-0">
+    <nz-form-control nzErrorTip="Este campo es obligatorio.">
+      <nz-form-label nzRequired>Descripción</nz-form-label>
+      <input nz-input formControlName="description" placeholder="Descripción...">
+    </nz-form-control>
+  </nz-form-item>
+  <div class="flex flex-col md:flex-row gap-3">
+    <nz-form-item class="w-full mb-0">
+      <nz-form-control nzErrorTip="Por favor verifica este campo.">
+        <nz-form-label nzRequired>Precio</nz-form-label>
+        <nz-input-number-group nzPrefix="$">
+          <nz-input-number formControlName="price" [nzStep]="1"></nz-input-number>
+        </nz-input-number-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="w-full mb-0">
+      <nz-form-control nzErrorTip="Por favor verifica este campo.">
+        <nz-form-label nzRequired>Cantidad en inventario</nz-form-label>
+        <nz-input-number formControlName="quantity" [nzStep]="1"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</form>
+
+<div class="flex justify-end gap-2 px-2" *nzModalFooter>
+  <button nz-button (click)="cancelEditProductForm()" [disabled]="isEditProductButtonDisabled">
+    Cancelar
+  </button>
+  <button
+    nz-button
+    nzType="primary"
+    (click)="editProduct()"
+    [disabled]="form.invalid"
+    [nzLoading]="isEditProductButtonDisabled"
+  >
+    <span nz-icon nzType="check" nzTheme="outline"></span> Guardar
+  </button>
+</div>

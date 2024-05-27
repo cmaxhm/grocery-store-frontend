@@ -16,11 +16,12 @@
       <li nz-menu-item routerLink="/login" nzMatchRouter nzMatchRouterExact *ngIf="!isUserAuthenticated">
         <span nz-icon nzType="key" nzTheme="outline"></span> Iniciar sesión
       </li>
-      <ng-container *ngIf="isUserAuthenticated">
-        <li nz-menu-item *ngIf="isUserAuthenticated" (click)="logout()">
-          <span nz-icon nzType="logout" nzTheme="outline"></span> Cerrar sesión
-        </li>
-      </ng-container>
+      <li nz-menu-item *ngIf="isAdministratorAuthenticated" routerLink="/administrator">
+        <span nz-icon nzType="setting" nzTheme="outline"></span> Panel de Administración
+      </li>
+      <li nz-menu-item *ngIf="isUserAuthenticated" (click)="logout()">
+        <span nz-icon nzType="logout" nzTheme="outline"></span> Cerrar sesión
+      </li>
     </ul>
   </div>
   <button

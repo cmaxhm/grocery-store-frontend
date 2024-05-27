@@ -4,7 +4,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { Order } from '../../../shared/interfaces/order.interface';
 import { Product } from '../../../shared/interfaces/product.interface';
-import { CartService } from '../../../shared/services/cart.service';
+import { LoginService } from '../../../shared/services/login.service';
+import { OrdersService } from '../../../shared/services/orders.service';
 import { cartActions } from '../../../shared/state/app.actions';
 import { selectCart } from '../../../shared/state/app.selectors';
 
@@ -40,7 +41,8 @@ export class CartComponent implements OnDestroy {
 
   constructor(
     private store: Store,
-    private cartService: CartService,
+    private ordersService: OrdersService,
+    private loginService: LoginService,
     private nzMessageService: NzMessageService
   ) {
     this.totalPrice = 0;
@@ -101,10 +103,12 @@ export class CartComponent implements OnDestroy {
    */
   public sendOrder(): void {
     const order: Partial<Order> = {
+      user: this.loginService.getUser(),
+      date: new Date().toString(),
       products: this.products
     };
 
-    this.cartService
+    this.ordersService
       .sendOrder(order)
       .pipe(takeUntil(this.destroy$))
       .subscribe({

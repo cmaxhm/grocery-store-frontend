@@ -1,7 +1,4 @@
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { selectQuantityOfProductsInCart } from '../../state/app.selectors';
 
 @Component({
   selector: 'app-table',
@@ -15,23 +12,45 @@ export class TableComponent<T> {
   @Input() public data: T[];
 
   /**
+   * The total number of items.
+   */
+  @Input() public total: number;
+
+  /**
    * Columns to be displayed in the table.
    */
   @Input() public columns: string[];
+
+  /**
+   * The single item text to display in the footer.
+   */
+  @Input() public dataSingleText: string;
+
+  /**
+   * The plural item text to display in the footer.
+   */
+  @Input() public dataPluralText: string;
 
   /**
    * The item template.
    */
   @ContentChild(TemplateRef) public itemTemplate!: TemplateRef<{ $implicit: T }>;
 
-  /**
-   * The number of products in the cart.
-   */
-  public numberOfProductsInCart$: Observable<number>;
-
-  constructor(private store: Store) {
+  constructor() {
     this.data = [];
     this.columns = [];
-    this.numberOfProductsInCart$ = this.store.select(selectQuantityOfProductsInCart);
+    this.total = 0;
+    this.dataSingleText = 'producto';
+    this.dataPluralText = 'productos';
+  }
+
+  /**
+   * The track by function for the ngFor directive.
+   *
+   * @param _index The index of the element.
+   * @param item The item object.
+   */
+  public trackByFunction(_index: number, item: any): string {
+    return item.id;
   }
 }

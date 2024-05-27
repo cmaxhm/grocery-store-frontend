@@ -27,6 +27,10 @@
   @apply flex items-center justify-center gap-1 rounded;
 }
 
+.ant-popover-buttons {
+  @apply flex flex-row justify-end gap-1;
+}
+
 // Badges
 
 .ant-scroll-number {
@@ -48,6 +52,27 @@
 nz-input-group,
 .ant-input {
   @apply rounded;
+}
+
+.ant-form-item-control-input {
+  .ant-form-item-control-input-content {
+    @apply flex flex-col gap-1;
+
+    nz-input-number,
+    nz-input-number-group {
+      @apply w-full rounded;
+
+      input {
+        @apply outline-none;
+      }
+    }
+  }
+}
+
+// Forms
+
+.ant-form-vertical .ant-form-item-label {
+  @apply p-0;
 }
 
 // Messages

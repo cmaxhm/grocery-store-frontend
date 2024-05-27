@@ -2,13 +2,20 @@
 
 Project developed for frontend skills testing purposes.
 
-## Administrator credentials
+## Credentials
 
-To access the administrator panel, use the following credentials:
+To access as administrator:
 
 ``` 
 Username: admin
 Password: admin
+```
+
+To access as normal user:
+
+``` 
+Username: user
+Password: user
 ```
 
 ## Starting 🚀

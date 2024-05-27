@@ -1,8 +1,6 @@
 <nz-table
   #table
   [nzData]="data"
-  [nzTotal]="data.length"
-  [nzShowPagination]="false"
   [nzFooter]="tableTotalTemplate"
   [nzNoResult]="noResultTemplate"
 >
@@ -12,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let item of table.data">
+    <ng-container *ngFor="let item of table.data; trackBy: trackByFunction">
       <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
     </ng-container>
   </tbody>
@@ -26,9 +24,7 @@
 </ng-template>
 
 <ng-template #tableTotalTemplate>
-  <ng-container *ngIf="numberOfProductsInCart$ | async as numberOfProductsInCart">
-    <span *ngIf="numberOfProductsInCart >= 1">
-      Total: {{ numberOfProductsInCart }} {{ (numberOfProductsInCart > 1) ? 'productos' : 'producto' }}
-    </span>
-  </ng-container>
+  <span *ngIf="total >= 1">
+    Total: {{ total }} {{ (total > 1) ? dataPluralText : dataSingleText }}
+  </span>
 </ng-template>

@@ -1,0 +1,84 @@
+<h1 class="text-2xl font-semibold mb-5">Catálogo</h1>
+<section class="mb-5">
+  <button nz-button nzType="primary" *ngIf="!isAddProductFormDisplayed" (click)="isAddProductFormDisplayed = true">
+    <span nz-icon nzType="plus" nzTheme="outline"></span> Agregar producto
+  </button>
+  <form nz-form nzLayout="vertical" class="max-w-md flex flex-col gap-y-2" [formGroup]="form" *ngIf="isAddProductFormDisplayed">
+    <nz-form-item class="mb-0">
+      <nz-form-control nzErrorTip="Este campo es obligatorio.">
+        <nz-form-label nzRequired>Nombre</nz-form-label>
+        <input nz-input formControlName="name" placeholder="Nombre...">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-0">
+      <nz-form-control nzErrorTip="Este campo es obligatorio.">
+        <nz-form-label nzRequired>Descripción</nz-form-label>
+        <input nz-input formControlName="description" placeholder="Descripción...">
+      </nz-form-control>
+    </nz-form-item>
+    <div class="flex flex-col md:flex-row gap-3">
+      <nz-form-item class="w-full mb-0">
+        <nz-form-control nzErrorTip="Por favor verifica este campo.">
+          <nz-form-label nzRequired>Precio</nz-form-label>
+          <nz-input-number-group nzPrefix="$">
+            <nz-input-number formControlName="price" [nzStep]="1"></nz-input-number>
+          </nz-input-number-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="w-full mb-0">
+        <nz-form-control nzErrorTip="Por favor verifica este campo.">
+          <nz-form-label nzRequired>Cantidad en inventario</nz-form-label>
+          <nz-input-number formControlName="quantity" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="flex gap-3 mt-3">
+      <button nz-button (click)="cancelAddProductForm()" [disabled]="isAddProductButtonDisabled">
+        Cancelar
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="addProduct()"
+        [disabled]="form.invalid"
+        [nzLoading]="isAddProductButtonDisabled"
+      >
+        <span nz-icon nzType="check" nzTheme="outline"></span> Agregar producto
+      </button>
+    </div>
+  </form>
+</section>
+<section>
+  <app-table
+    [data]="products"
+    [total]="totalProducts"
+    [columns]="['Nombre', 'Descripción', 'Precio', 'Cantidad', 'Acciones']"
+  >
+    <ng-template let-item>
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.price | currency }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>
+          <div class="flex gap-2">
+            <button nz-button nz-tooltip nzTooltipTitle="Editar" nzType="default" (click)="editProduct(item)">
+              <span nz-icon nzType="edit"></span>
+            </button>
+            <button
+              nz-button
+              nzType="default"
+              nz-popconfirm
+              nzPopconfirmTitle="¿Confirmar eliminar este producto?"
+              nzDanger
+              nzOkDanger
+              (nzOnConfirm)="deleteProduct(item.id)"
+            >
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </app-table>
+</section>

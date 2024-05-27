@@ -1,0 +1,36 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: node:18.16.1-alpine
+  only:
+    - master
+  script:
+    - npm i --legacy-peer-deps
+    - npx ng build
+    - tar -czvf frontend.tar.gz dist/grocery-store-frontend/*
+  artifacts:
+    paths:
+      - frontend.tar.gz
+
+deploy:
+  stage: deploy
+  image: alpine
+  only:
+    - master
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - scp -o StrictHostKeyChecking=no frontend.tar.gz admin@$SERVER_ADDRESS:/home/admin/
+    - ssh -o StrictHostKeyChecking=no admin@$SERVER_ADDRESS "sudo rm -rf /var/www/gsf/frontend/*"
+    - ssh -o StrictHostKeyChecking=no admin@$SERVER_ADDRESS "sudo mv /home/admin/frontend.tar.gz /var/www/gsf/frontend"
+    - ssh -o StrictHostKeyChecking=no admin@$SERVER_ADDRESS "cd /var/www/gsf/frontend && sudo tar -xzvf frontend.tar.gz"
+    - ssh -o StrictHostKeyChecking=no admin@$SERVER_ADDRESS "sudo mv /var/www/gsf/frontend/dist/grocery-store-frontend/* /var/www/gsf/frontend"
+    - ssh -o StrictHostKeyChecking=no admin@$SERVER_ADDRESS "sudo rm /var/www/gsf/frontend/frontend.tar.gz"
+    - ssh -o StrictHostKeyChecking=no admin@$SERVER_ADDRESS "sudo rm -rf /var/www/gsf/frontend/dist"

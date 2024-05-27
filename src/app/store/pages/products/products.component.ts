@@ -54,7 +54,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
    *
    * @param _index The index of the element.
    * @param product The product object.
-   * @returns The product id.
    */
   public trackByFunction(_index: number, product: Product): string {
     return product.id;

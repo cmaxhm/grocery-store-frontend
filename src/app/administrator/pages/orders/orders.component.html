@@ -1,0 +1,28 @@
+<h1 class="text-2xl font-semibold mb-5">Pedidos</h1>
+<section>
+  <app-table
+    [data]="(orders$ | async)!"
+    [total]="totalOrders"
+    [dataSingleText]="'pedido'"
+    [dataPluralText]="'pedidos'"
+    [columns]="['ID', 'Usuario', 'Fecha', 'Productos', 'Total']"
+  >
+    <ng-template let-item>
+      <tr>
+        <td>
+          <span class="px-2 bg-gray-200 text-gray-600 rounded-full border border-gray-400">{{ item.id }}</span>
+        </td>
+        <td>{{ item.user.username }}</td>
+        <td>{{ item.date | date }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let product of item.products">
+              <span class="font-semibold">{{ product.quantity }}x {{ product.name }}</span>: {{ product.price | currency }} por unidad
+            </li>
+          </ul>
+        </td>
+        <td>{{ getTotal(item.products) | currency }}</td>
+      </tr>
+    </ng-template>
+  </app-table>
+</section>

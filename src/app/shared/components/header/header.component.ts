@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil, tap } from 'rxjs';
+import { env } from '../../../../environments/environment';
 import { User } from '../../interfaces/user.interface';
 import { LoginService } from '../../services/login.service';
 import { userActions } from '../../state/app.actions';
@@ -34,6 +35,11 @@ export class HeaderComponent implements OnInit {
   public user?: Partial<User>;
 
   /**
+   * Whether an administrator is authenticated or not.
+   */
+  public isAdministratorAuthenticated: boolean;
+
+  /**
    * The destroy subject. Used to avoid memory leaks.
    *
    * @private
@@ -45,6 +51,7 @@ export class HeaderComponent implements OnInit {
     private store: Store
   ) {
     this.isUserAuthenticated = false;
+    this.isAdministratorAuthenticated = false;
     this.isResponsive = window.innerWidth <= RESPONSIVE_BREAKPOINTS.lg;
     this.isMenuDisplayed = !this.isResponsive;
     this.destroy$ = new Subject();
@@ -56,6 +63,7 @@ export class HeaderComponent implements OnInit {
         tap((user) => {
           this.user = user;
           this.isUserAuthenticated = !!(user.id);
+          this.isAdministratorAuthenticated = (this.loginService.isUserAuthenticated() && user.role === env.administratorRoleName);
         })
       )
       .subscribe();
@@ -92,8 +100,6 @@ export class HeaderComponent implements OnInit {
    * Logs out the user.
    */
   public logout(): void {
-    console.log('Logout');
-
     this.loginService.logout();
   }
 }

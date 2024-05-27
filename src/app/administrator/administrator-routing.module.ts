@@ -7,13 +7,22 @@ const routes: Routes = [
   {
     path: '',
     component: AdministratorComponent,
-    title: 'Tienda GSF - Administrador',
-    canActivate: [administratorGuard]
-  },
-  {
-    path: '**',
-    pathMatch: 'full',
-    redirectTo: ''
+    canActivate: [administratorGuard],
+    children: [
+      {
+        path: 'catalog',
+        loadChildren: () => import('./pages/catalog/catalog.module').then(m => m.CatalogModule)
+      },
+      {
+        path: 'orders',
+        loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule)
+      },
+      {
+        path: '**',
+        pathMatch: 'full',
+        redirectTo: 'catalog'
+      }
+    ]
   }
 ];
 

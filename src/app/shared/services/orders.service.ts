@@ -7,8 +7,15 @@ import { Order } from '../interfaces/order.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class OrdersService {
   constructor(private httpClient: HttpClient) {}
+
+  /**
+   * Gets the orders list.
+   */
+  public getOrders(): Observable<Order[]> {
+    return this.httpClient.get<Order[]>(`${ env.apiUrl }/orders`);
+  }
 
   /**
    * Sends the order to the server.
